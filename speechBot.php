@@ -53,11 +53,11 @@ switch ($data['type']) {
 	    echo $vkConfirmationKey;
 		break;
 	case 'message_new':
-		$object = getFwd($data['object']); // если сообщение в сообщении, добираемся до самого глубокого и ищем аудио там
+		$object = getFwd($data['object']);
 		$link = $object['attachments'][0]['doc']['preview']['audio_msg']['link_ogg'];
 		$duration = $object['attachments'][0]['doc']['preview']['audio_msg']['duration'];
 		if ($link) {
-			if ($duration > 20) // органичение specchkit api в 20 секунд
+			if ($duration > 20)
 				sendMessage($data['object']['user_id'], 'Голосовое сообщение слишком длинное. Попробуй до 20 секунд :(');
 			else {
 				$text = '';
@@ -76,7 +76,7 @@ switch ($data['type']) {
 			}
 		}
 		else
-			sendMessage($data['object']['user_id'], 'Пришли мне голосовое сообщение, а я его распознаю!<br><br>А еще подпишись на vk.com/speechkit');
+			sendMessage($data['object']['user_id'], 'Пришли мне голосовое сообщение, а я его распознаю!<br><br>С любовью, Никита :)');
 		echo('ok');
 		break;
 }
