@@ -26,11 +26,6 @@ function yandex($file)
 		)
 	);
 }
-function getFwd($arr) {
-	if ($arr['fwd_messages'])
-		return getFwd($arr['fwd_messages'][0]);
-	else return $arr;
-}
 function vkApi($method, $param = null, $post = null)
 {
 	global $vkToken;
@@ -53,14 +48,14 @@ switch ($data['type']) {
 	    echo $vkConfirmationKey;
 		break;
 	case 'message_new':
-		$object = getFwd($data['object']);
-		$link = $object['attachments'][0]['doc']['preview']['audio_msg']['link_ogg'];
-		$duration = $object['attachments'][0]['doc']['preview']['audio_msg']['duration'];
+		$link = $data['object']['attachments'][0]['doc']['preview']['audio_msg']['link_ogg'];
+		$duration = $data['object']['attachments'][0]['doc']['preview']['audio_msg']['duration'];
 		if ($link) {
-			if ($duration > 20)
+			if ($duration > 20){
 				sendMessage($data['object']['user_id'], 'Голосовое сообщение слишком длинное. Попробуй до 20 секунд :(');
-			else {
+			}else {
 				$text = '';
+				$max = '';
 				$yandex = yandex($link);
 				$xml = simplexml_load_string($yandex);
 				foreach($xml->variant as $variant) {
@@ -69,14 +64,15 @@ switch ($data['type']) {
 						$text = $variant;
 					}
 				}
-				if ($text)
+				if ($text){
 					sendMessage($data['object']['user_id'], $text);
-				else
+				}else{
 					sendMessage($data['object']['user_id'], 'Голосовое сообщение не распознано :(');
+				}
 			}
-		}
-		else
+		}else{
 			sendMessage($data['object']['user_id'], 'Пришли мне голосовое сообщение, а я его распознаю!<br><br>С любовью, Никита :)');
+		}
 		echo('ok');
 		break;
 }
