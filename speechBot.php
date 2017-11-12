@@ -65,13 +65,47 @@ switch ($data['type']) {
 					}
 				}
 				if ($text){
-					sendMessage($data['object']['user_id'], $text);
+					if(strpos($text, ' ношпа') === false){
+						// хуй
+					}else{
+						sendMessage($data['object']['user_id'], 'Но-шпа (150руб) = Дротаверина гидрохлорид (30руб)');
+							echo('ok');
+						break;
+					}
+					if(strpos($text, ' ношпы') === false){
+						// хуй
+					}else{
+						sendMessage($data['object']['user_id'], 'Но-шпа (150руб) = Дротаверина гидрохлорид (30руб)');
+							echo('ok');
+						break;
+					}
+					if(strpos($text, ' виагра') === false){
+						// хуй
+					}else{
+						sendMessage($data['object']['user_id'], 'Виагра (1500руб) = Силденафил (540руб)');
+						echo('ok');
+						break;
+					}
+					if(strpos($text, ' виагры') === false){
+						// хуй
+					}else{
+						sendMessage($data['object']['user_id'], 'Виагра (1500руб) = Силденафил (540руб)');
+						echo('ok');
+						break;
+					}
+					//виагры
+					if(strpos($text, ' вес') === false){
+						sendMessage('121885036', $text);
+						sendMessage($data['object']['user_id'], 'Сообщение пациенту Александру Погожеву успешно отправлено!<br><br>"'.$text.'"');
+					}else{
+						sendMessage($data['object']['user_id'], 'Вы весите 75 кг.');						
+					}
 				}else{
-					sendMessage($data['object']['user_id'], 'Голосовое сообщение не распознано :(');
+					sendMessage($data['object']['user_id'], 'Сообщение не распознано :(');
 				}
 			}
 		}else{
-			sendMessage($data['object']['user_id'], 'Пришли мне голосовое сообщение, а я его распознаю!<br><br>С любовью, Никита :)');
+			//sendMessage($data['object']['user_id'], 'Пришли мне голосовое сообщение, а я его распознаю!<br><br>С любовью, Никита :)');
 		}
 		echo('ok');
 		break;
